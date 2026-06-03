@@ -2,13 +2,19 @@ import { PrismaClient } from "@prisma/client";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+// PrismaClient singleton for serverless environments
+let prisma;
 
-const adapter = new PrismaPg(pool);
-
-const prisma = new PrismaClient({ adapter });
+const getPrismaClient = () => {
+  if (!prisma) {
+    const pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+    });
+    const adapter = new PrismaPg(pool);
+    prisma = new PrismaClient({ adapter });
+  }
+  return prisma;
+};
 
 const aici = {
   saveMonitoring: async (req, res) => {
@@ -31,6 +37,8 @@ const aici = {
         });
       }
 
+      const prisma = getPrismaClient();
+
       const data = await prisma.monitoring.create({
         data: {
           datetime: DateTime ? new Date(DateTime) : null,
@@ -52,10 +60,11 @@ const aici = {
         data: data,
       });
     } catch (error) {
-      console.error("❌ Error:", error.message);
+      console.error("❌ Error:", error);
       return res.status(500).json({
         success: false,
         message: "Server error",
+        error: process.env.NODE_ENV === "development" ? error.message : undefined,
       });
     }
   },

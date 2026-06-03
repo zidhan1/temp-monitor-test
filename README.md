@@ -47,14 +47,26 @@ The application will be available at your Vercel domain.
 
 ## API Endpoints
 
+### GET /
+API information and available endpoints.
+
+### GET /health
+Health check endpoint to verify the API is running and database is configured.
+
 ### POST /api/monitoring
 Save temperature monitoring data.
 
 Request body:
 ```json
 {
-  "temperature": number,
-  "timestamp": string
+  "DateTime": "2024-06-03T10:00:00Z",
+  "Temp1": 25.5,
+  "Status1": "Normal",
+  "Temp2": 26.0,
+  "Status2": "Normal",
+  "Button": "On",
+  "Mode": "Auto",
+  "Location": "Kitchen"
 }
 ```
 
