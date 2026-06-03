@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir -p /Users/user/Desktop/deepfryer/api)"
+      "Bash(mkdir -p /Users/user/Desktop/deepfryer/api)",
+      "Bash(vercel --version)"
     ],
     "additionalDirectories": [
       "/Users/user/Desktop/deepfryer"
