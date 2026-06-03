@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /Users/user/Desktop/deepfryer/api)"
+    ],
+    "additionalDirectories": [
+      "/Users/user/Desktop/deepfryer"
+    ]
+  }
+}

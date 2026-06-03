@@ -6,7 +6,7 @@
 
 // Node.js 18+ sudah built-in fetch, tidak perlu install
 
-const ENDPOINT = "http://localhost:3000/api/monitoring";
+const ENDPOINT = "https://temp-monitor-test.vercel.app/api/monitoring";
 const METHOD = "POST"; // ganti 'GET' jika ingin test GET
 
 // ──────────────────────────────────────────

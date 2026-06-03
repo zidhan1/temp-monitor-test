@@ -1,0 +1,62 @@
+# Deepfryer - Temperature Monitoring API
+
+Express.js application for temperature monitoring with Supabase PostgreSQL database.
+
+## Prerequisites
+- Node.js installed
+- Supabase account and project
+
+## Local Development
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Set up environment variables in `.env`:
+```env
+DATABASE_URL="your-supabase-pooler-url"
+DIRECT_URL="your-supabase-direct-url"
+```
+
+3. Run Prisma migrations:
+```bash
+npx prisma migrate dev
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+## Vercel Deployment
+
+### Environment Variables
+Before deploying, set these environment variables in your Vercel project settings:
+
+- `DATABASE_URL`: Your Supabase pooler connection string
+- `DIRECT_URL`: Your Supabase direct connection string
+
+### Deployment Steps
+1. Push your code to Git
+2. Import your project in Vercel
+3. Configure environment variables in Vercel dashboard
+4. Deploy
+
+The application will be available at your Vercel domain.
+
+## API Endpoints
+
+### POST /api/monitoring
+Save temperature monitoring data.
+
+Request body:
+```json
+{
+  "temperature": number,
+  "timestamp": string
+}
+```
+
+## Database
+This project uses Prisma ORM with Supabase PostgreSQL.
