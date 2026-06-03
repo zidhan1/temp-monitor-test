@@ -1,10 +1,14 @@
-import { createClient } from "@supabase/supabase-js";
+import { PrismaClient } from "@prisma/client";
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-// Koneksi ke Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY,
-);
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const adapter = new PrismaPg(pool);
+
+const prisma = new PrismaClient({ adapter });
 
 const aici = {
   saveMonitoring: async (req, res) => {
@@ -27,30 +31,25 @@ const aici = {
         });
       }
 
-      const { data, error } = await supabase
-        .from("monitoring")
-        .insert([
-          {
-            datetime: DateTime,
-            temp1: Temp1,
-            status1: Status1,
-            temp2: Temp2,
-            status2: Status2,
-            button: Button,
-            mode: Mode,
-            location: Location,
-          },
-        ])
-        .select();
-
-      if (error) throw error;
+      const data = await prisma.monitoring.create({
+        data: {
+          datetime: DateTime ? new Date(DateTime) : null,
+          temp1: Temp1,
+          status1: Status1,
+          temp2: Temp2,
+          status2: Status2,
+          button: Button,
+          mode: Mode,
+          location: Location,
+        },
+      });
 
       console.log("✅ Data tersimpan:", data);
 
       return res.status(201).json({
         success: true,
         message: "Data berhasil disimpan",
-        data: data[0],
+        data: data,
       });
     } catch (error) {
       console.error("❌ Error:", error.message);

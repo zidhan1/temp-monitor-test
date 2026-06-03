@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Monitoring {
+  id        Int      @id @default(autoincrement())
+  datetime  DateTime?
+  temp1     Float?
+  status1   String?   @db.VarChar(50)
+  temp2     Float?
+  status2   String?   @db.VarChar(50)
+  button    String?   @db.VarChar(10)
+  mode      String?   @db.VarChar(20)
+  location  String?   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("monitoring")
+}
