@@ -3,13 +3,17 @@ import express from "express";
 import routes from "../src/routes/index.js";
 
 const app = express();
-const port = 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+// ⚠️ Jangan listen di Vercel (serverless)
+if (process.env.NODE_ENV !== "production") {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
 
 export default app;

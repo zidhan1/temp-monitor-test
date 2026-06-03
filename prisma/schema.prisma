@@ -1,22 +1,21 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
 }
 
-model Monitoring {
-  id        Int      @id @default(autoincrement())
-  datetime  DateTime?
-  temp1     Float?
-  status1   String?   @db.VarChar(50)
-  temp2     Float?
-  status2   String?   @db.VarChar(50)
-  button    String?   @db.VarChar(10)
-  mode      String?   @db.VarChar(20)
-  location  String?   @db.VarChar(100)
-  createdAt DateTime @default(now()) @map("created_at")
-
-  @@map("monitoring")
+model monitoring {
+  id         Int       @id @default(autoincrement())
+  datetime   DateTime?
+  temp1      Float?
+  status1    String?
+  temp2      Float?
+  status2    String?
+  button     String?
+  mode       String?
+  location   String?
+  created_at DateTime  @default(now())
 }
